@@ -40,3 +40,6 @@ function foo() {
     alert(x);
     y = 'Bob';
 }
+
+
+ bibao
