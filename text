@@ -1,0 +1,42 @@
+变量在JavaScript中就是用一个变量名表示，变量名是大小写英文、数字、$和_的组合，且不能用数字开头。变量名也不能是JavaScript的关键字，如if、while.
+
+访问属性是通过.操作符完成的，但这要求属性名必须是一个有效的变量名。如果属性名包含特殊字符，就必须用''括起来：
+
+var xiaohong = {
+    name: '小红',
+    'middle-school': 'No.1 Middle School'
+};
+xiaohong的属性名middle-school不是一个有效的变量，就需要用''括起来。访问这个属性也无法使用.操作符，必须用['xxx']来访问：
+
+xiaohong['middle-school']; // 'No.1 Middle School'
+xiaohong['name']; // '小红'
+xiaohong.name; // '小红'
+xiaohong.middle_school 可以的有效的
+
+
+
+
+
+变量提升
+
+JavaScript的函数定义有个特点，它会先扫描整个函数体的语句，把所有申明的变量“提升”到函数顶部：
+
+'use strict';
+
+function foo() {
+    var x = 'Hello, ' + y;
+    alert(x);
+    var y = 'Bob';
+}
+
+foo();
+虽然是strict模式，但语句var x = 'Hello, ' + y;并不报错，原因是变量y在稍后申明了。但是alert显示Hello, undefined，说明变量y的值为undefined。这正是因为JavaScript引擎自动提升了变量y的声明，但不会提升变量y的赋值。
+
+对于上述foo()函数，JavaScript引擎看到的代码相当于：
+
+function foo() {
+    var y; // 提升变量y的申明
+    var x = 'Hello, ' + y;
+    alert(x);
+    y = 'Bob';
+}
